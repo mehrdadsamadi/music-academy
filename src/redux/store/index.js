@@ -1,9 +1,13 @@
-import {configureStore} from "@reduxjs/toolkit"
+import { configureStore } from "@reduxjs/toolkit"
 
 import promptReducer from "../reducers/prompt.slice"
 
 export const store = configureStore({
     reducer: {
         prompt: promptReducer
-    }
+    },
+    middleware: (getDefaultMiddleware) =>
+        getDefaultMiddleware({
+            serializableCheck: false,
+        }),
 })
