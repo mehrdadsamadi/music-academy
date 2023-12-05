@@ -13,21 +13,21 @@ const Prompt = () => {
     const handleClose = () => {
         dispatch(close())
     };
-    const handleAgree = () => {
+    const handleAccept = () => {
         dispatch(accept())
     };
 
     return (
         <Dialog onClose={handleClose} open={prompt.show} sx={{"& .MuiDialog-paper": {p: 3}}}>
-            <DialogTitle textAlign="center" sx={{fontWeight: "bold", display: "none"}}>
-                {prompt?.title}
+            <DialogTitle textAlign="center" className="pt-0">
+                {prompt?.message}
             </DialogTitle>
-            <DialogContent>
+            {/* <DialogContent>
                 <DialogContentText textAlign="center" sx={{color: "black"}}>{prompt?.message}</DialogContentText>
-            </DialogContent>
+            </DialogContent> */}
             <DialogActions dir="ltr" className="d-flex justify-content-center pb-0">
                 <Button onClick={handleClose} fullWidth variant="text" sx={{ "&:hover": {bgcolor: "error.main" , color: "whitesmoke"}, color: "black"}}>{prompt.rejectBtnText}</Button>
-                <Button onClick={handleAgree} fullWidth variant="contained">{prompt.acceptBtnText}</Button>
+                <Button onClick={handleAccept} fullWidth variant="contained">{prompt.acceptBtnText}</Button>
             </DialogActions>
         </Dialog>
     )

@@ -1,10 +1,11 @@
 import { configureStore } from "@reduxjs/toolkit"
 
-import promptReducer from "../reducers/prompt.slice"
+import { promptReducer, loadingReducer } from "../reducers"
 
 export const store = configureStore({
     reducer: {
-        prompt: promptReducer
+        prompt: promptReducer,
+        loading: loadingReducer
     },
     middleware: (getDefaultMiddleware) =>
         getDefaultMiddleware({
