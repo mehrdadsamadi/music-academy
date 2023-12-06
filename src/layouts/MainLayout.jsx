@@ -6,10 +6,10 @@ const MainLayout = () => {
     return (
         <>
             <Grid container>
-                <Grid xs={4}>
+                <Grid xs={3}>
                     {/* sidebar */}
                 </Grid>
-                <Grid xs={8}>
+                <Grid xs={9}>
                     {/* navbar */}
                     <Box>
                         <Outlet />
