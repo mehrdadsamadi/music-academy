@@ -1,0 +1,146 @@
+{
+  "data": {
+    "فرزاد صمدی مقدم": {
+      "data": [
+        {
+          "id": 3,
+          "time": "17:00",
+          "day": "دوشنبه",
+          "exception_day": null,
+          "exception_time": null,
+          "semester_sessions": 8,
+          "semester_price": 1400000,
+          "academy": {
+            "id": 1,
+            "name": "آموزشگاه موسیقی خیام",
+            "email": "samadifarzad28@gmail.com",
+            "username": "khayyammusic"
+          }
+        },
+        {
+          "id": 2,
+          "time": "18:30",
+          "day": "دوشنبه",
+          "exception_day": null,
+          "exception_time": null,
+          "semester_sessions": 8,
+          "semester_price": 1400000,
+          "academy": {
+            "id": 1,
+            "name": "آموزشگاه موسیقی خیام",
+            "email": "samadifarzad28@gmail.com",
+            "username": "khayyammusic"
+          }
+        }
+      ]
+    },
+    "امیر صفری": {
+      "data": [
+        {
+          "id": 1,
+          "time": "20:30",
+          "day": "دوشنبه",
+          "exception_day": "2023-12-17",
+          "exception_time": "19:00",
+          "semester_sessions": 8,
+          "semester_price": 1400000,
+          "academy": {
+            "id": 1,
+            "name": "آموزشگاه موسیقی خیام",
+            "email": "samadifarzad28@gmail.com",
+            "username": "khayyammusic"
+          }
+        }
+      ]
+    }
+  }
+}
+
+{
+  "data": [
+    {
+      "id": 1,
+      "instrument": "کمانچه",
+      "sessions": 8,
+      "price": 1400000,
+      "master": {
+        "id": 1,
+        "firstname": "فرزاد",
+        "lastname": "صمدی مقدم",
+        "national_code": "0880337842",
+        "landline_number": "05138903228",
+        "phone_number1": "09371567429",
+        "phone_number2": null,
+        "email": "samadifarzad28@gmail.com",
+        "avatar": "https://lh3.googleusercontent.com/a/ACg8ocJ-x_fwwEFxFUO_xOBjQ2qUqqM_BuwS4O8ilXiZ2Lxz=s96-c"
+      },
+      "actions": {
+        "edit": "http://127.0.0.1:8000/academy/class/edit/1",
+        "delete": "http://127.0.0.1:8000/academy/class/delete/1"
+      }
+    },
+    {
+      "id": 2,
+      "instrument": "ویولن",
+      "sessions": 8,
+      "price": 1400000,
+      "master": {
+        "id": 1,
+        "firstname": "فرزاد",
+        "lastname": "صمدی مقدم",
+        "national_code": "0880337842",
+        "landline_number": "05138903228",
+        "phone_number1": "09371567429",
+        "phone_number2": null,
+        "email": "samadifarzad28@gmail.com",
+        "avatar": "https://lh3.googleusercontent.com/a/ACg8ocJ-x_fwwEFxFUO_xOBjQ2qUqqM_BuwS4O8ilXiZ2Lxz=s96-c"
+      },
+      "actions": {
+        "edit": "http://127.0.0.1:8000/academy/class/edit/2",
+        "delete": "http://127.0.0.1:8000/academy/class/delete/2"
+      }
+    },
+    {
+      "id": 3,
+      "instrument": "هنگ درام",
+      "sessions": 8,
+      "price": 1400000,
+      "master": {
+        "id": 9,
+        "firstname": "مهرداد",
+        "lastname": "صمدی مقدم",
+        "national_code": "0880337834",
+        "landline_number": "05138903228",
+        "phone_number1": "09371567428",
+        "phone_number2": null,
+        "email": "samadimehrdad49@gmail.com",
+        "avatar": "images/master/avatar/1702649789.JPG"
+      },
+      "actions": {
+        "edit": "http://127.0.0.1:8000/academy/class/edit/3",
+        "delete": "http://127.0.0.1:8000/academy/class/delete/3"
+      }
+    },
+    {
+      "id": 4,
+      "instrument": "نی",
+      "sessions": 8,
+      "price": 1400000,
+      "master": {
+        "id": 10,
+        "firstname": "امیر",
+        "lastname": "صفری",
+        "national_code": "0890571783",
+        "landline_number": "05138903328",
+        "phone_number1": "09913591329",
+        "phone_number2": null,
+        "email": "spwspw111@gmail.com",
+        "avatar": "images/master/avatar/1702815264.jpg"
+      },
+      "actions": {
+        "edit": "http://127.0.0.1:8000/academy/class/edit/4",
+        "delete": "http://127.0.0.1:8000/academy/class/delete/4"
+      }
+    }
+  ]
+}

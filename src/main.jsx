@@ -10,9 +10,9 @@ import { store } from "./redux/store"
 import "../public/css/bootstrap.min.css"
 
 createRoot(document.getElementById('root')).render(
-  <StrictMode>
+  // <StrictMode>
     <Provider store={store}>
       <RouterProvider router={router} />
     </Provider>
-  </StrictMode>,
+  // </StrictMode>
 )

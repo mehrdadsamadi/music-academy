@@ -1,82 +1,89 @@
+import { useState, useEffect } from "react"
+import { useDispatch } from "react-redux";
 import { Box } from '@mui/material';
 import { DataGrid, GridActionsCellItem } from '@mui/x-data-grid';
-import { DeleteRounded, EditRounded } from '@mui/icons-material';
+import { DeleteRounded, EditRounded, VisibilityRounded } from '@mui/icons-material';
+import PropTypes from "prop-types"
+import toast from 'react-hot-toast';
 
-const columns = [
-    { field: 'id', headerName: 'ID', width: 90 },
-    {
-        field: 'firstName',
-        headerName: 'First name',
-        width: 150,
-        editable: true,
-    },
-    {
-        field: 'lastName',
-        headerName: 'Last name',
-        width: 150,
-        editable: true,
-    },
-    {
-        field: 'age',
-        headerName: 'Age',
-        type: 'number',
-        width: 110,
-        editable: true,
-    },
-    {
-        field: 'fullName',
-        headerName: 'Full name',
-        description: 'This column has a value getter and is not sortable.',
-        sortable: false,
-        width: 160,
-        valueGetter: (params) =>
-            `${params.row.firstName || ''} ${params.row.lastName || ''}`,
-    },
-    {
-        field: 'actions',
-        type: 'actions',
-        headerName: 'Actions',
-        width: 100,
-        cellClassName: 'actions',
-        getActions: ({ id }) => {
+import { prompt } from '../../redux/reducers/prompt.slice';
+import { createHeader } from "../../helpers/table";
+import { commonDelete } from "../../services/common";
 
-            return [
-                <GridActionsCellItem
-                    key={0}
-                    icon={<EditRounded />}
-                    label="Edit"
-                    className="textPrimary"
-                    color="inherit"
-                />,
-                <GridActionsCellItem
-                    key={1}
-                    icon={<DeleteRounded />}
-                    label="Delete"
-                    color="inherit"
-                />,
-            ];
-        },
-    },
-];
+const DataTable = ({ data, disableAction = false, defaultHeaders = [] }) => {
 
-const rows = [
-    { id: 1, lastName: 'Snow', firstName: 'Jon', age: 35 },
-    { id: 2, lastName: 'Lannister', firstName: 'Cersei', age: 42 },
-    { id: 3, lastName: 'Lannister', firstName: 'Jaime', age: 45 },
-    { id: 4, lastName: 'Stark', firstName: 'Arya', age: 16 },
-    { id: 5, lastName: 'Targaryen', firstName: 'Daenerys', age: null },
-    { id: 6, lastName: 'Melisandre', firstName: null, age: 150 },
-    { id: 7, lastName: 'Clifford', firstName: 'Ferrara', age: 44 },
-    { id: 8, lastName: 'Frances', firstName: 'Rossini', age: 36 },
-    { id: 9, lastName: 'Roxie', firstName: 'Harvey', age: 65 },
-];
+    const [headers, setHeaders] = useState([])
 
-const DataTable = () => {
+    const dispatch = useDispatch()
+
+    const handleDeleteRow = (id) => {
+        dispatch(prompt({ message: "برای پاک کردن مطمعن هستید؟" }))
+            .then(async () => {
+                const { actionsRoutes } = data.find(row => row.id === id)
+                const { message } = await commonDelete(actionsRoutes.delete)
+                toast.success(message)
+            })
+    }
+
+    useEffect(() => {
+        if (defaultHeaders.length === 0) {
+            const dataObject = data.slice()
+
+            Object.keys(dataObject[0]).map(key => {
+                const newHeader = {
+                    field: key,
+                    headerName: key,
+                    editable: false,
+                    width: 150,
+                    sortable: false
+                }
+
+                setHeaders(oldHeaders => [...oldHeaders, newHeader])
+            })
+        } else {
+            setHeaders(createHeader(defaultHeaders))
+        }
+
+        if (!disableAction) {
+            setHeaders(oldHeaders => [...oldHeaders, {
+                field: 'actions',
+                type: 'actions',
+                headerName: 'عملیات',
+                width: 150,
+                cellClassName: 'actions',
+                getActions: ({ id }) => {
+                    return [
+                        <GridActionsCellItem
+                            key={0}
+                            icon={<EditRounded />}
+                            label="Edit"
+                            sx={{color: "primary.light"}}
+                        />,
+                        <GridActionsCellItem
+                            key={1}
+                            icon={<VisibilityRounded />}
+                            label="show"
+                            sx={{color: "warning.light"}}
+                        />,
+                        <GridActionsCellItem
+                            key={2}
+                            icon={<DeleteRounded />}
+                            label="Delete"
+                            sx={{color: "error.light"}}
+                            onClick={() => handleDeleteRow(id)}
+                        />,
+                    ];
+                },
+            }])
+        }
+
+    }, [])
+
     return (
-        <Box sx={{ width: '100%', p: 2 }} >
+        <Box sx={{ width: 1, p: 2 }} >
             <DataGrid
-                rows={rows}
-                columns={columns}
+                rows={data}
+                columns={headers}
                 initialState={{
                     pagination: {
                         paginationModel: {
@@ -84,25 +91,42 @@ const DataTable = () => {
                         },
                     },
                 }}
+                pageSizeOptions={[10]}
+                editMode="row"
                 sx={{
+                    "&.MuiDataGrid-root": {
+                        direction: "ltr",
+                        transform: "rotateY(180deg)"
+                    },
                     "& .MuiDataGrid-columnHeaders": {
                         borderRadius: "1rem",
                         mb: 3,
-                        boxShadow: "0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);"
+                        boxShadow: "0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);",
+                        border: "1px solid rgba(0,0,0,0.075)"
+                    },
+                    "& .MuiDataGrid-columnHeader": {
+                        transform: "rotateY(180deg)"
                     },
                     "& .MuiDataGrid-row": {
                         borderRadius: "1rem",
                         mb: 1,
                         boxShadow: "0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);",
+                        border: "1px solid rgba(0,0,0,0.075)"
                     },
                     "& .MuiDataGrid-cell": {
-                        border: "none"
+                        border: "none",
+                        transform: "rotateY(180deg)",
+                        justifyContent: "center"
+                    },
+                    "& .MuiDataGrid-columnHeaderTitleContainer": {
+                        justifyContent: "center"
                     },
                     "& .MuiDataGrid-footerContainer": {
-                        direction: "ltr",
-                        border: "none",
+                        transform: "rotateY(180deg)",
+                        // border: "none",
                         borderRadius: "1rem",
-                        boxShadow: "0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);"
+                        boxShadow: "0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);",
+                        border: "1px solid rgba(0,0,0,0.075)"
                     },
                     "& .MuiDataGrid-footerContainer p": {
                         mb: 0
@@ -112,6 +136,12 @@ const DataTable = () => {
             />
         </Box>
     );
+}
+
+DataTable.propTypes = {
+    data: PropTypes.arrayOf(PropTypes.object).isRequired,
+    disableAction: PropTypes.bool,
+    defaultHeaders: PropTypes.array
 }
 
 export default DataTable
